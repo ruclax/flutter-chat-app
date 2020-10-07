@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:chatapp/services/auth_services.dart';
+import 'package:chatapp/services/socket_service.dart';
 
 import 'package:chatapp/widgets/custom_input.dart';
 import 'package:chatapp/widgets/boton_azul.dart';
@@ -58,6 +59,7 @@ class __FormState extends State<_Form> {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
+    final socketService = Provider.of<SocketService>(context);
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -95,7 +97,7 @@ class __FormState extends State<_Form> {
                         passCtrl.text.trim());
 
                     if (registroOk == true) {
-                      //TODO: Conectar al socket server
+                      socketService.connect();
                       Navigator.pushReplacementNamed(context, 'usuarios');
                     } else {
                       mostrarAlerta(context, 'Registro Incorrecto', registroOk);
